@@ -2,7 +2,7 @@
 name: Bug Report
 about: Create a report to help improve Ampere
 title: "[BUG]"
-labels: bug
+labels: ''
 assignees: MTACS
 
 ---

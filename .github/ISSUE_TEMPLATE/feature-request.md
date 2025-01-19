@@ -2,7 +2,7 @@
 name: Feature Request
 about: Suggest an idea for Ampere
 title: "[FEATURE]"
-labels: ''
+labels: Feature Request
 assignees: MTACS
 
 ---
