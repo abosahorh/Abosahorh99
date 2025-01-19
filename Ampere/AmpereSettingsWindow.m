@@ -27,8 +27,27 @@ NSUserDefaults *defaults;
 - (void)loadPreferences {
     if (!defaults) defaults = [NSUserDefaults standardUserDefaults];
     
-    BOOL launchesAtLogin = [[SMAppService mainAppService] status] == SMAppServiceStatusEnabled;
-    self.loginSwitch.state = (launchesAtLogin) ? NSControlStateValueOn : NSControlStateValueOff;
+    if (@available(macOS 13.0, *)) {
+        BOOL launchesAtLogin = [[SMAppService mainAppService] status] == SMAppServiceStatusEnabled;
+        self.loginSwitch.state = (NSControlStateValue)launchesAtLogin;
+    } else {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
+        #pragma clang diagnostic pop
+        
+        BOOL launchesAtLogin = NO;
+        if (jobs || [jobs count]>0) {
+            for (NSDictionary *job in jobs) {
+                if ([[job objectForKey:@"Label"] isEqualToString:@"com.mtac.ampere"]) {
+                    launchesAtLogin = [[job objectForKey:@"OnDemand"] boolValue];
+                    break;
+                }
+            }
+        }
+        
+        self.loginSwitch.state = (NSControlStateValue)launchesAtLogin;
+    }
     
     BOOL useFahrenheit = [[defaults objectForKey:@"useFahrenheit"] boolValue];
     BOOL useBatteryColors = [[defaults objectForKey:@"useBatteryColors"] boolValue];
@@ -58,12 +77,17 @@ NSUserDefaults *defaults;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPowerConditionChangedNotification object:nil];
 }
 - (IBAction)toggleAutoLaunch:(NSSwitch *)sender {
-    SMAppService *mainService = [SMAppService mainAppService];
     NSError *err;
-    if (sender.state == NSControlStateValueOn) {
-        [mainService registerAndReturnError:&err];
-    } else if (sender.state == NSControlStateValueOff) {
-        [mainService unregisterAndReturnError:&err];
+    if (@available(macOS 13.0, *)) {
+        SMAppService *mainService = [SMAppService mainAppService];
+        
+        if (sender.state == NSControlStateValueOn) {
+            [mainService registerAndReturnError:&err];
+        } else if (sender.state == NSControlStateValueOff) {
+            [mainService unregisterAndReturnError:&err];
+        }
+    } else {
+        SMLoginItemSetEnabled((__bridge CFStringRef)@"com.mtac.ampere", sender.state);
     }
     if (err) {
         NSLog(@"Error -> %@", err);

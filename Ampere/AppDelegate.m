@@ -185,8 +185,6 @@ BOOL containsKey(NSString *key) {
     NSString *percentageString = [NSString stringWithFormat:@"%d", capacityRemaining];
     
     [_statusItem.button setImage:[self batteryFillImageWithPercentage:(CGFloat)(capacityRemaining) / 100 charging:charging]];
-    
-    [_statusItem.button setImage:[self batteryFillImageWithPercentage:(CGFloat)(capacityRemaining) / 100 charging:charging]];
 
     BOOL useBatteryColors = [[preferences objectForKey:@"useBatteryColors"] boolValue];
     
