@@ -13,7 +13,7 @@ The default macOS battery indicator is lacking in color and design, fix that wit
 
 ## Install
 
-Download the latest zip from [releases](https://github.com/MTACS/AmpereMac/releases), unzip and copy to /Applications. Requires macOS 12.0 or later
+Download the latest zip from [releases](https://github.com/MTACS/AmpereMac/releases), unzip and copy to /Applications. Requires macOS 12.0 or later. The default indicator can be hidden via the Battery options in Settings. Make sure to enable 'Launch at Login' to show immediately after logging in
 
 ## Building
 
