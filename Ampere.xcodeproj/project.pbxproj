@@ -1,0 +1,370 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1798E5F72D376C2E00FC230A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1798E5F62D376C2E00FC230A /* AppDelegate.m */; };
+		1798E5FC2D376C2F00FC230A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1798E5FB2D376C2F00FC230A /* Assets.xcassets */; };
+		1798E6012D376C2F00FC230A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1798E6002D376C2F00FC230A /* main.m */; };
+		1798E60C2D376C8E00FC230A /* AmpereSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1798E6082D376C8E00FC230A /* AmpereSettingsController.m */; };
+		1798E60D2D376C8E00FC230A /* AmpereSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1798E6092D376C8E00FC230A /* AmpereSettingsController.xib */; };
+		1798E60E2D376C8E00FC230A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1798E60B2D376C8E00FC230A /* MainMenu.xib */; };
+		17ACB2082D3C6C8100642D49 /* batteryProperties.txt in Resources */ = {isa = PBXBuildFile; fileRef = 17ACB2072D3C6C8100642D49 /* batteryProperties.txt */; };
+		17CC20DD2D388110002545D3 /* AmpereSettingsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CC20DC2D388110002545D3 /* AmpereSettingsWindow.m */; };
+		17CC20F72D38B3C4002545D3 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17CC20F62D38B3C4002545D3 /* ServiceManagement.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1798E5F22D376C2E00FC230A /* Ampere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ampere.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1798E5F52D376C2E00FC230A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1798E5F62D376C2E00FC230A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1798E5FB2D376C2F00FC230A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1798E6002D376C2F00FC230A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1798E6022D376C2F00FC230A /* Ampere.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ampere.entitlements; sourceTree = "<group>"; };
+		1798E6082D376C8E00FC230A /* AmpereSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmpereSettingsController.m; sourceTree = "<group>"; };
+		1798E6092D376C8E00FC230A /* AmpereSettingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmpereSettingsController.xib; sourceTree = "<group>"; };
+		1798E60A2D376C8E00FC230A /* AmpereSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmpereSettingsController.h; sourceTree = "<group>"; };
+		1798E60B2D376C8E00FC230A /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		17ACB2072D3C6C8100642D49 /* batteryProperties.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = batteryProperties.txt; sourceTree = "<group>"; };
+		17CC20DB2D388110002545D3 /* AmpereSettingsWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AmpereSettingsWindow.h; sourceTree = "<group>"; };
+		17CC20DC2D388110002545D3 /* AmpereSettingsWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmpereSettingsWindow.m; sourceTree = "<group>"; };
+		17CC20F62D38B3C4002545D3 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1798E5EF2D376C2E00FC230A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17CC20F72D38B3C4002545D3 /* ServiceManagement.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1798E5E92D376C2E00FC230A = {
+			isa = PBXGroup;
+			children = (
+				1798E5F42D376C2E00FC230A /* Ampere */,
+				1798E5F32D376C2E00FC230A /* Products */,
+				17CC20F52D38B3C4002545D3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1798E5F32D376C2E00FC230A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1798E5F22D376C2E00FC230A /* Ampere.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1798E5F42D376C2E00FC230A /* Ampere */ = {
+			isa = PBXGroup;
+			children = (
+				1798E5F52D376C2E00FC230A /* AppDelegate.h */,
+				1798E5F62D376C2E00FC230A /* AppDelegate.m */,
+				1798E60A2D376C8E00FC230A /* AmpereSettingsController.h */,
+				1798E6082D376C8E00FC230A /* AmpereSettingsController.m */,
+				1798E6092D376C8E00FC230A /* AmpereSettingsController.xib */,
+				17CC20DB2D388110002545D3 /* AmpereSettingsWindow.h */,
+				17CC20DC2D388110002545D3 /* AmpereSettingsWindow.m */,
+				1798E5FB2D376C2F00FC230A /* Assets.xcassets */,
+				1798E60B2D376C8E00FC230A /* MainMenu.xib */,
+				1798E6002D376C2F00FC230A /* main.m */,
+				1798E6022D376C2F00FC230A /* Ampere.entitlements */,
+				17ACB2072D3C6C8100642D49 /* batteryProperties.txt */,
+			);
+			path = Ampere;
+			sourceTree = "<group>";
+		};
+		17CC20F52D38B3C4002545D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17CC20F62D38B3C4002545D3 /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1798E5F12D376C2E00FC230A /* Ampere */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1798E6052D376C2F00FC230A /* Build configuration list for PBXNativeTarget "Ampere" */;
+			buildPhases = (
+				1798E5EE2D376C2E00FC230A /* Sources */,
+				1798E5EF2D376C2E00FC230A /* Frameworks */,
+				1798E5F02D376C2E00FC230A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ampere;
+			productName = Ampere;
+			productReference = 1798E5F22D376C2E00FC230A /* Ampere.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1798E5EA2D376C2E00FC230A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1798E5F12D376C2E00FC230A = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 1798E5ED2D376C2E00FC230A /* Build configuration list for PBXProject "Ampere" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1798E5E92D376C2E00FC230A;
+			productRefGroup = 1798E5F32D376C2E00FC230A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1798E5F12D376C2E00FC230A /* Ampere */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1798E5F02D376C2E00FC230A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1798E60D2D376C8E00FC230A /* AmpereSettingsController.xib in Resources */,
+				17ACB2082D3C6C8100642D49 /* batteryProperties.txt in Resources */,
+				1798E5FC2D376C2F00FC230A /* Assets.xcassets in Resources */,
+				1798E60E2D376C8E00FC230A /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1798E5EE2D376C2E00FC230A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17CC20DD2D388110002545D3 /* AmpereSettingsWindow.m in Sources */,
+				1798E6012D376C2F00FC230A /* main.m in Sources */,
+				1798E60C2D376C8E00FC230A /* AmpereSettingsController.m in Sources */,
+				1798E5F72D376C2E00FC230A /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1798E6032D376C2F00FC230A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1798E6042D376C2F00FC230A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1798E6062D376C2F00FC230A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ampere/Ampere.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ML54VJYG9;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Ampere;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtac.ampere;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		1798E6072D376C2F00FC230A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ampere/Ampere.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ML54VJYG9;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Ampere;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtac.ampere;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1798E5ED2D376C2E00FC230A /* Build configuration list for PBXProject "Ampere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1798E6032D376C2F00FC230A /* Debug */,
+				1798E6042D376C2F00FC230A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1798E6052D376C2F00FC230A /* Build configuration list for PBXNativeTarget "Ampere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1798E6062D376C2F00FC230A /* Debug */,
+				1798E6072D376C2F00FC230A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1798E5EA2D376C2E00FC230A /* Project object */;
+}
