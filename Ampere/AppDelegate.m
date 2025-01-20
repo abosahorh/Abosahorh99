@@ -8,63 +8,11 @@
 #import "AppDelegate.h"
 #include <objc/runtime.h>
 
-#define kPowerConditionChangedNotification  @"AmperePowerConditionChanged"
-
 NSUserDefaults *preferences;
-
-static NSUInteger PowerChangeListenerCount = 0;
-static CFRunLoopSourceRef PowerChangeSource = NULL;
-static void PowerChangeCallback(void *context) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPowerConditionChangedNotification object:nil];
-}
 
 BOOL containsKey(NSString *key) {
     return [preferences.dictionaryRepresentation.allKeys containsObject:key];
 }
-
-@interface PowerCondition : NSObject {
-    BOOL listening;
-    //...
-}
-@end
-
-@implementation PowerCondition
-- (void)startMonitoringCondition {
-    if (!listening) {
-        if (PowerChangeListenerCount++==0) {
-            
-            PowerChangeSource = IOPSNotificationCreateRunLoopSource(PowerChangeCallback,NULL);
-            CFRunLoopAddSource([[NSRunLoop mainRunLoop] getCFRunLoop],PowerChangeSource,kCFRunLoopCommonModes);
-            }
-        listening = YES;
-    }
-}
-- (void)stopMonitoringCondition {
-    if (listening) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        if (--PowerChangeListenerCount==0) {
-            CFRunLoopRemoveSource([[NSRunLoop mainRunLoop] getCFRunLoop],PowerChangeSource,kCFRunLoopCommonModes);
-            CFRelease(PowerChangeSource);
-            PowerChangeSource = NULL;
-            listening = NO;
-        }
-    }
-}
-@end
-
-@interface AmpereColorWell : NSColorWell
-@end
-
-@implementation AmpereColorWell
-- (void)activate:(BOOL)exclusive {
-    [[NSColorPanel sharedColorPanel] setShowsAlpha:YES];
-    [super activate:exclusive];
-}
-- (void)deactivate {
-    [super deactivate];
-    [[NSColorPanel sharedColorPanel] setShowsAlpha:NO];
-}
-@end
 
 @interface AppDelegate ()
 @property (strong) IBOutlet NSWindow *window;
@@ -80,13 +28,16 @@ BOOL containsKey(NSString *key) {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBatteryInfo) name:NSProcessInfoPowerStateDidChangeNotification object:nil];
     
-    PowerCondition *condition = [[PowerCondition alloc] init];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBatteryInfo) name:@"AMPUpdateBatteryView" object:nil];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleAutoLaunch:) name:@"AMPSetAutoLaunch" object:nil];
+    
+    AMPPowerCondition *condition = [[AMPPowerCondition alloc] init];
     [condition startMonitoringCondition];
     
     _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [_statusItem setLength:32];
     [_statusItem.button setFont:[NSFont systemFontOfSize:12 weight:NSFontWeightMedium]];
     _statusItem.button.imageScaling = NSImageScaleProportionallyDown;
+    [(NSButtonCell *)_statusItem.button.cell setHighlightsBy:NSNoCellMask];
     _statusItem.menu = self.batteryMenu;
     
     percentageLabel = [[NSTextField alloc] initWithFrame:CGRectZero];
@@ -94,23 +45,37 @@ BOOL containsKey(NSString *key) {
     percentageLabel.bezeled = NO;
     percentageLabel.editable = NO;
     percentageLabel.drawsBackground = NO;
-    percentageLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightBold];
     percentageLabel.backgroundColor = [NSColor clearColor];
     percentageLabel.maximumNumberOfLines = 1;
-    percentageLabel.alignment = NSTextAlignmentCenter;
+    // percentageLabel.alignment = NSTextAlignmentCenter;
+    percentageLabel.cell = [AMPTextFieldCell new];
     
     [_statusItem.button addSubview:percentageLabel];
     
     [NSLayoutConstraint activateConstraints:@[
-        [percentageLabel.centerYAnchor constraintEqualToAnchor:_statusItem.button.centerYAnchor],
         [percentageLabel.leadingAnchor constraintEqualToAnchor:_statusItem.button.leadingAnchor],
-        [percentageLabel.trailingAnchor constraintEqualToAnchor:_statusItem.button.trailingAnchor constant:-2],
-        [percentageLabel.heightAnchor constraintEqualToConstant:14],
     ]];
+    
+    self.labelHeightConstraint = [percentageLabel.heightAnchor constraintEqualToConstant:14];
+    self.labelHeightConstraint.active = YES;
+    
+    self.labelCenterConstraint = [percentageLabel.centerYAnchor constraintEqualToAnchor:_statusItem.button.centerYAnchor];
+    self.labelCenterConstraint.active = YES;
+    
+    self.labelTrailingConstraint = [percentageLabel.trailingAnchor constraintEqualToAnchor:_statusItem.button.trailingAnchor];
+    self.labelTrailingConstraint.active = YES;
     
     [self updateBatteryInfo];
 }
 - (void)loadPreferences {
+    
+    if (!containsKey(@"batteryStyle")) {
+        [preferences setObject:@(0) forKey:@"batteryStyle"];
+    }
+    
+    if (!containsKey(@"fontSize")) {
+        [preferences setObject:@(11) forKey:@"fontSize"];
+    }
     
     if (!containsKey(@"useFahrenheit")) {
         [preferences setObject:@(YES) forKey:@"useFahrenheit"];
@@ -118,6 +83,14 @@ BOOL containsKey(NSString *key) {
     
     if (!containsKey(@"useBatteryColors")) {
         [preferences setObject:@(YES) forKey:@"useBatteryColors"];
+    }
+    
+    if (!containsKey(@"showPercentage")) {
+        [preferences setObject:@(YES) forKey:@"showPercentage"];
+    }
+    
+    if (!containsKey(@"autoLaunch")) {
+        [preferences setObject:@(NO) forKey:@"autoLaunch"];
     }
     
     if (!containsKey(@"normalColor")) {
@@ -153,6 +126,8 @@ BOOL containsKey(NSString *key) {
     return image;
 }
 - (void)updateBatteryInfo {
+    NSLog(@"Updating Battery");
+    
     kern_return_t result;
     mach_port_t port = 0;
     io_registry_entry_t entry = IOServiceGetMatchingService(port, IOServiceMatching("IOPMPowerSource"));
@@ -181,15 +156,46 @@ BOOL containsKey(NSString *key) {
     
     BOOL charging = [[properties objectForKey:@"ExternalConnected"] boolValue];
     
-    int capacityRemaining = [[properties objectForKey:@"CurrentCapacity"] intValue];
-    NSString *percentageString = [NSString stringWithFormat:@"%d", capacityRemaining];
+    double capacityRemaining = [[properties objectForKey:@"CurrentCapacity"] doubleValue];
+    double maxCapacity = [[properties objectForKey:@"MaxCapacity"] doubleValue];
+    NSString *percentageString = [NSString stringWithFormat:@"%d", (int)((capacityRemaining / maxCapacity) * 100)];
     
-    [_statusItem.button setImage:[self batteryFillImageWithPercentage:(CGFloat)(capacityRemaining) / 100 charging:charging]];
+    NSInteger batteryStyle = [[preferences objectForKey:@"batteryStyle"] integerValue];
+    
+    switch (batteryStyle) {
+        default:
+        case 0: {
+            [_statusItem setLength:32];
+            break;
+        }
+        case 1: {
+            [_statusItem setLength:26];
+            break;
+        }
+        case 2: {
+            [_statusItem setLength:32];
+            break;
+        }
+    }
+    
+    [_statusItem.button setImage:[self batteryFillImageWithPercentage:(capacityRemaining / maxCapacity) charging:charging style:batteryStyle]];
 
     BOOL useBatteryColors = [[preferences objectForKey:@"useBatteryColors"] boolValue];
     
+    BOOL showPercentage = [[preferences objectForKey:@"showPercentage"] boolValue];
+    
+    NSInteger fontSize = [[preferences objectForKey:@"fontSize"] integerValue];
+    
+    [percentageLabel setHidden:(!showPercentage || batteryStyle == 1)];
+    percentageLabel.font = [NSFont systemFontOfSize:fontSize weight:NSFontWeightBold];
+    
     [percentageLabel setStringValue:percentageString];
     percentageLabel.textColor = (useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"textColor"]] : [NSColor colorWithWhite:0 alpha:0.6];
+    
+    self.labelHeightConstraint.constant = (fontSize >= 13) ? 16 : 14;
+    self.labelCenterConstraint.constant = (fontSize >= 13) ? 0 : 0;
+    self.labelTrailingConstraint.constant = (fontSize >= 13) ? -3 : -4;
+    [percentageLabel layout];
     
     [self.capacityLabel setStringValue:[NSString stringWithFormat:@"%@%%", percentageString]];
     
@@ -225,27 +231,75 @@ BOOL containsKey(NSString *key) {
     
     return [NSColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
-- (NSImage *)batteryFillImageWithPercentage:(CGFloat)percentage charging:(BOOL)charging {
+- (NSImage *)batteryFillImageWithPercentage:(CGFloat)percentage charging:(BOOL)charging style:(NSInteger)style {
     
     BOOL useBatteryColors = [[preferences objectForKey:@"useBatteryColors"] boolValue];
     
-    NSImage *batteryImage = [NSImage imageNamed:@"battery-light"];
-    NSImage *croppedBatteryImage;
-    if (charging) {
-        croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"chargingColor"]] : [NSColor systemGreenColor]];
-    } else {
-        croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"normalColor"]] : [NSColor whiteColor]];
-    }
+    NSImage *finalBatteryImage;
     
-    if ((NSInteger)(percentage * 100) <= 10) {
-        croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"criticalColor"]] : [NSColor systemRedColor]];
+    switch (style) {
+        default:
+        case 0: {
+            NSImage *batteryImage = [NSImage imageNamed:@"battery"];
+            NSImage *croppedBatteryImage;
+            if (charging) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"chargingColor"]] : [NSColor systemGreenColor]];
+            } else {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"normalColor"]] : [NSColor whiteColor]];
+            }
+            
+            if ((NSInteger)(percentage * 100) <= 10) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"criticalColor"]] : [NSColor systemRedColor]];
+            }
+            
+            if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"lowPowerColor"]] : [self colorFromHexString:@"FEDD11FF"]];
+            }
+            
+            finalBatteryImage = [self overlayImage:[NSImage imageNamed:@"battery"] withImage:croppedBatteryImage];
+            break;
+        }
+        case 1: {
+            NSImage *batteryImage = [NSImage imageNamed:@"battery-vertical"];
+            NSImage *croppedBatteryImage;
+            if (charging) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toHeightPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"chargingColor"]] : [NSColor systemGreenColor]];
+            } else {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toHeightPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"normalColor"]] : [NSColor whiteColor]];
+            }
+            
+            if ((NSInteger)(percentage * 100) <= 10) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toHeightPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"criticalColor"]] : [NSColor systemRedColor]];
+            }
+            
+            if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+                croppedBatteryImage = [self image:[self cropImage:batteryImage toHeightPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"lowPowerColor"]] : [self colorFromHexString:@"FEDD11FF"]];
+            }
+            
+            finalBatteryImage = [self overlayImage:[NSImage imageNamed:@"battery-vertical"] withImage:croppedBatteryImage];
+            break;
+        }
+        case 2: {
+            NSImage *batteryImage = [NSImage imageNamed:@"battery"];
+            NSImage *croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:[NSColor whiteColor]];
+            NSImage *outlineImage;
+            if (charging) {
+                outlineImage = [self image:[NSImage imageNamed:@"battery-outline"] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"chargingColor"]] : [NSColor systemGreenColor]];
+            } else {
+                outlineImage = [self image:[NSImage imageNamed:@"battery-outline"] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"normalColor"]] : [NSColor whiteColor]];
+            }
+            
+            if ((NSInteger)(percentage * 100) <= 10) {
+                outlineImage = [self image:[NSImage imageNamed:@"battery-outline"] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"criticalColor"]] : [NSColor systemRedColor]];
+            }
+            
+            if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+                outlineImage = [self image:[NSImage imageNamed:@"battery-outline"] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"lowPowerColor"]] : [self colorFromHexString:@"FEDD11FF"]];
+            }
+            finalBatteryImage = [self overlayImage:croppedBatteryImage withImage:outlineImage];
+            break;
+        }
     }
-    
-    if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
-        croppedBatteryImage = [self image:[self cropImage:batteryImage toWidthPercentage:percentage] tintedWithColor:(useBatteryColors) ? [self colorFromHexString:[preferences objectForKey:@"lowPowerColor"]] : [self colorFromHexString:@"FEDD11FF"]];
-    }
-    
-    NSImage *finalBatteryImage = [self overlayImage:[NSImage imageNamed:@"battery-light"] withImage:croppedBatteryImage];
     
     return finalBatteryImage;
 }
@@ -261,6 +315,29 @@ BOOL containsKey(NSString *key) {
     NSRect sourceRect = NSMakeRect(0, 0, croppedWidth, croppedHeight);
     
     NSImage *croppedImage = [[NSImage alloc] initWithSize:NSMakeSize(originalSize.width, croppedHeight)];
+    
+
+    [croppedImage lockFocus];
+    [image drawInRect:NSMakeRect(0, 0, croppedWidth, croppedHeight)
+             fromRect:sourceRect
+            operation:NSCompositingOperationCopy
+             fraction:1];
+    [croppedImage unlockFocus];
+    
+    return croppedImage;
+}
+- (NSImage *)cropImage:(NSImage *)image toHeightPercentage:(CGFloat)percentage {
+    if (!image || percentage <= 0.0 || percentage > 1.0) {
+        return nil;
+    }
+    NSSize originalSize = [image size];
+    
+    CGFloat croppedWidth = originalSize.width;
+    CGFloat croppedHeight = originalSize.height * percentage;
+    
+    NSRect sourceRect = NSMakeRect(0, 0, croppedWidth, croppedHeight);
+    
+    NSImage *croppedImage = [[NSImage alloc] initWithSize:NSMakeSize(croppedWidth, originalSize.height)];
     
 
     [croppedImage lockFocus];
@@ -297,6 +374,16 @@ BOOL containsKey(NSString *key) {
     [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
 - (IBAction)showSettings:(id)sender {
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    
+    // [[NSWorkspace sharedWorkspace] openApplicationAtURL:configuration:completionHandler:] doesn't work but launchApplication: does? 
+    
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    [[NSWorkspace sharedWorkspace] launchApplication:[[mainBundle resourcePath] stringByAppendingString:@"/AmpereSettings.app"]];
+    #pragma clang diagnostic pop
+}
+/* - (IBAction)settings:(id)sender {
     AmpereSettingsController *prefsController = [[AmpereSettingsController alloc] init];
     NSWindow *prefsWindow = [prefsController window];
     NSVisualEffectView *vibrant = [[NSClassFromString(@"NSVisualEffectView") alloc] initWithFrame:[[prefsWindow contentView] bounds]];
@@ -306,6 +393,27 @@ BOOL containsKey(NSString *key) {
     [[prefsWindow contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
     [prefsWindow makeKeyAndOrderFront:nil];
     [prefsWindow orderFrontRegardless];
+} */
+- (void)toggleAutoLaunch:(NSNotification *)notification {
+    NSDictionary *infoDict = notification.userInfo;
+    NSLog(@"%@", infoDict);
+    BOOL autoLaunch = [[infoDict objectForKey:@"enabled"] boolValue];
+    [preferences setObject:@(autoLaunch) forKey:@"autoLaunch"];
+    NSError *err;
+    if (@available(macOS 13.0, *)) {
+        SMAppService *mainService = [SMAppService mainAppService];
+        
+        if (autoLaunch == NSControlStateValueOn) {
+            [mainService registerAndReturnError:&err];
+        } else if (autoLaunch == NSControlStateValueOff) {
+            [mainService unregisterAndReturnError:&err];
+        }
+    } else {
+        SMLoginItemSetEnabled((__bridge CFStringRef)@"com.mtac.ampere", autoLaunch);
+    }
+    if (err) {
+        NSLog(@"Error -> %@", err);
+    }
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSColor.ignoresAlpha = NO;

@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+AmpereSettings in Ampere, no dependencies
+Ampere in Ampere, depends on:
+AmpereSettings in Ampere (explicit)

@@ -6,9 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <IOKit/ps/IOPowerSources.h>
 #import <QuartzCore/QuartzCore.h>
-#import "AmpereSettingsController.h"
+#import <ServiceManagement/ServiceManagement.h>
+#import "Classes/AMPTextFieldCell.h"
+#import "Classes/AMPPowerCondition.h"
 
 extern NSString *const kCAFilterDestOut;
 
@@ -26,6 +27,9 @@ extern NSString *const kCAFilterDestOut;
 @property (nonatomic, retain) IBOutlet NSTextField *powerLabel;
 @property (nonatomic, retain) NSTextField *percentageLabel;
 @property (atomic, assign) BOOL launchOnLogin;
+@property (nonatomic, retain) NSLayoutConstraint *labelHeightConstraint;
+@property (nonatomic, retain) NSLayoutConstraint *labelCenterConstraint;
+@property (nonatomic, retain) NSLayoutConstraint *labelTrailingConstraint;
 @end
 
 @interface CALayer (BetterCC)

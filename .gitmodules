@@ -1,0 +1,6 @@
+[submodule "DSFToggleButton"]
+	path = DSFToggleButton
+	url = https://github.com/dagronf/DSFToggleButton
+[submodule "AmpereSettings/ITSwitch"]
+	path = AmpereSettings/ITSwitch
+	url = https://github.com/iluuu1994/ITSwitch.git
