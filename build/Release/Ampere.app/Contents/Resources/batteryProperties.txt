@@ -1,0 +1,296 @@
+{
+    AbsoluteCapacity = 0;
+    AdapterDetails =     {
+        AdapterID = 5718;
+        AdapterVoltage = 20000;
+        Current = 4290;
+        Description = "pd charger";
+        FamilyCode = "-536854518";
+        FwVersion = 01070069;
+        HwVersion = "1.0";
+        IsWireless = 0;
+        Manufacturer = "Apple Inc.";
+        Model = 0x1656;
+        Name = "87W USB-C Power Adapter";
+        PMUConfiguration = 4290;
+        Watts = 86;
+    };
+    AdapterInfo = 0;
+    Amperage = 0;
+    AppleRawAdapterDetails =     (
+                {
+            AdapterID = 5718;
+            AdapterVoltage = 20000;
+            Current = 4290;
+            Description = "pd charger";
+            FamilyCode = "-536854518";
+            FwVersion = 01070069;
+            HwVersion = "1.0";
+            IsWireless = 0;
+            Manufacturer = "Apple Inc.";
+            Model = 0x1656;
+            Name = "87W USB-C Power Adapter";
+            PMUConfiguration = 4290;
+            Watts = 86;
+        }
+    );
+    AppleRawBatteryVoltage = 12631;
+    AppleRawCurrentCapacity = 5048;
+    AppleRawExternalConnected = 1;
+    AppleRawMaxCapacity = 5049;
+    AtCriticalLevel = 0;
+    AvgTimeToEmpty = 65535;
+    AvgTimeToFull = 65535;
+    BatteryCellDisconnectCount = 0;
+    BatteryData =     {
+        AdapterPower = 1097723450;
+        AlgoChemID = 20882;
+        BatteryHealthMetric = 0;
+        BatteryState = {length = 16, bytes = 0x0000000000000000c3e4001289030000};
+        CellCurrentAccumulator =         (
+            0,
+            0
+        );
+        CellCurrentAccumulatorCount = 0;
+        CellVoltage =         (
+            4213,
+            4208,
+            4210
+        );
+        CellWom =         (
+            0,
+            0
+        );
+        ChargeAccum = 0;
+        ChemID = 20882;
+        ChemicalWeightedRa = 0;
+        CurrentSenseMonitorStatus = 0;
+        CycleCount = 217;
+        DOD0 =         (
+            4896,
+            4848,
+            4912
+        );
+        DailyMaxSoc = 100;
+        DailyMinSoc = 75;
+        DataFlashWriteCount = 8530;
+        DesignCapacity = 6075;
+        FccComp1 = 5352;
+        FccComp2 = 5049;
+        FilteredCurrent = 0;
+        Flags = 16777729;
+        GaugeFlagRaw = 224;
+        ISS = 0;
+        ITMiscStatus = 0;
+        LifetimeData =         {
+            AverageTemperature = "-30";
+            CycleCountLastQmax = 186;
+            MaximumChargeCurrent = 6350;
+            MaximumDischargeCurrent = "-5617";
+            MaximumPackVoltage = 13007;
+            MaximumTemperature = 43;
+            MinimumPackVoltage = 9030;
+            MinimumTemperature = 4;
+            RDISCnt = 0;
+            Raw = {length = 64, bytes = 0x04168674 0007dac6 00000000 00000000 ... 00e20004 afa60002 };
+            ResistanceUpdatedDisabledCount = 0;
+            TemperatureSamples = 307110;
+            TimeAtHighSoc = {length = 112, bytes = 0x00000000 86140000 1d030000 0e000000 ... 00000000 00000000 };
+            TotalOperatingTime = 19194;
+            UpdateTime = 1737241716;
+        };
+        ManufactureDate = 52992115028019;
+        MaxCapacity = 100;
+        MfgData = {length = 32, bytes = 0x00000000 0b000100 48140000 04313931 ... 4c000100 00000000 };
+        PMUConfigured = 4320;
+        PackCurrentAccumulator = 5055688;
+        PackCurrentAccumulatorCount = 802626;
+        PassedCharge = "-1278";
+        PresentDOD =         (
+            8,
+            8,
+            8
+        );
+        Qmax =         (
+            5892,
+            5951,
+            5877
+        );
+        QmaxDisqualificationReason = 0;
+        Qstart = 0;
+        RSS = 0;
+        Ra00 = 0;
+        Ra01 = 0;
+        Ra02 = 0;
+        Ra03 = 0;
+        Ra04 = 0;
+        Ra05 = 0;
+        Ra06 = 0;
+        Ra07 = 0;
+        Ra08 = 0;
+        Ra09 = 0;
+        Ra10 = 0;
+        Ra11 = 0;
+        Ra12 = 0;
+        Ra13 = 0;
+        Ra14 = 0;
+        RaTableRaw =         (
+            {length = 32, bytes = 0x005500db 00370030 00370049 00360044 ... 006600ac 0195028e },
+            {length = 32, bytes = 0x000000bb 0034002e 00310045 0030003c ... 0055007c 010601c9 },
+            {length = 32, bytes = 0x000000e3 00380030 00370048 00340041 ... 006f008a 01670248 }
+        );
+        ResScale = 0;
+        SimRate = 0;
+        Soc1Voltage = 0;
+        StateOfCharge = 99;
+        SystemPower = 1100298943;
+        Voltage = 12627;
+        WeightedRa = 0;
+        iMaxAndSocSmoothTable = {length = 32, bytes = 0x00000000 00000000 00000000 00000000 ... 00000000 00000000 };
+    };
+    BatteryInstalled = 1;
+    BatteryInvalidWakeSeconds = 30;
+    BestAdapterIndex = 3;
+    BootPathUpdated = 1736439219;
+    BootVoltage = 0;
+    CarrierMode =     {
+        CarrierModeHighVoltage = 4100;
+        CarrierModeLowVoltage = 3600;
+        CarrierModeStatus = 0;
+    };
+    ChargerConfiguration = 4320;
+    ChargerData =     {
+        ChargerID = 12;
+        ChargerStatus = {length = 64, bytes = 0x8ab87008 98200000 00000000 00000000 ... 00000000 00000000 };
+        ChargingCurrent = 0;
+        ChargingVoltage = 4263;
+        NotChargingReason = 4194305;
+        TimeChargingThermallyLimited = 0;
+        VacVoltageLimit = 4225;
+    };
+    ChargingOverride = 0;
+    CurrentCapacity = 100;
+    CycleCount = 217;
+    DesignCapacity = 6075;
+    DesignCycleCount9C = 1000;
+    DeviceName = bq40z651;
+    ExternalChargeCapable = 1;
+    ExternalConnected = 1;
+    FedDetails =     (
+                {
+            FedDesignCapacity = 0;
+            FedDualRolePower = 0;
+            FedExternalConnected = 0;
+            FedPortPowerRole = 0;
+            FedProductID = 0;
+            FedRemainingCapacity = 0;
+            FedStateOfCharge = 0;
+            FedVendorID = 0;
+        },
+                {
+            FedDesignCapacity = 0;
+            FedDualRolePower = 0;
+            FedExternalConnected = 0;
+            FedPortPowerRole = 0;
+            FedProductID = 0;
+            FedRemainingCapacity = 0;
+            FedStateOfCharge = 0;
+            FedVendorID = 0;
+        },
+                {
+            FedDesignCapacity = 100;
+            FedDualRolePower = 0;
+            FedExternalConnected = 1;
+            FedPortPowerRole = 1;
+            FedProductID = 29966;
+            FedRemainingCapacity = 65535;
+            FedStateOfCharge = 0;
+            FedVendorID = 1452;
+        },
+                {
+            FedDesignCapacity = 0;
+            FedDualRolePower = 0;
+            FedExternalConnected = 1;
+            FedPortPowerRole = 0;
+            FedProductID = 0;
+            FedRemainingCapacity = 0;
+            FedStateOfCharge = 0;
+            FedVendorID = 0;
+        }
+    );
+    FullPathUpdated = 1737241536;
+    FullyCharged = 1;
+    GasGaugeFirmwareVersion = 2;
+    IOGeneralInterest = "IOCommand is not serializable";
+    IOReportLegend =     (
+                {
+            IOReportChannelInfo =             {
+                IOReportChannelUnit = 0;
+            };
+            IOReportChannels =             (
+                                (
+                    7167869599145487988,
+                    6460407809,
+                    BatteryCycleCount
+                )
+            );
+            IOReportGroupName = Battery;
+        }
+    );
+    IOReportLegendPublic = 1;
+    InflowOverride = 0;
+    InstantAmperage = 0;
+    IsCharging = 0;
+    KioskMode =     {
+        KioskModeFullChargeVoltage = 0;
+        KioskModeHighSocDays = 0;
+        KioskModeHighSocSeconds = 0;
+        KioskModeLastHighSocHours = 0;
+        KioskModeMode = 0;
+    };
+    Location = 0;
+    ManufacturerData = {length = 32, bytes = 0x00000000 0b000100 48140000 04313931 ... 4c000100 00000000 };
+    MaxCapacity = 100;
+    NominalChargeCapacity = 5199;
+    PackReserve = 150;
+    PermanentFailureStatus = 0;
+    PostChargeWaitSeconds = 120;
+    PostDischargeWaitSeconds = 120;
+    PowerOutDetails =     (
+                {
+            AdapterVoltage = 5202;
+            ConfiguredCurrent = 3000;
+            Current = 316;
+            FilteredPower = 2027;
+            PortIndex = 3;
+            Watts = 1647;
+        }
+    );
+    PowerTelemetryData =     {
+        AccumulatedAdapterEfficiencyLoss = 2162524602569868;
+        AccumulatedBatteryPower = 0;
+        AccumulatedSystemEnergyConsumed = 872599022;
+        AccumulatedSystemLoad = 63158640424;
+        AccumulatedSystemPowerIn = 3142459870;
+        AccumulatedWallEnergyEstimate = 851695493;
+        AdapterEfficiencyLoss = 242;
+        AdapterEfficiencyLossAccumulatorCount = 651280;
+        BatteryPower = 0;
+        PowerTelemetryErrorCount = 0;
+        SystemCurrentIn = 740;
+        SystemEnergyConsumed = 4130;
+        SystemLoad = 18653;
+        SystemLoadAccumulatorCount = 784089;
+        SystemPowerIn = 14870;
+        SystemPowerInAccumulatorCount = 650931;
+        SystemVoltageIn = 20074;
+        WallEnergyEstimate = 4372;
+    };
+    Temperature = 3057;
+    TimeRemaining = 0;
+    UpdateTime = 1737241716;
+    UserVisiblePathUpdated = 1737241716;
+    VirtualTemperature = 3250;
+    Voltage = 12631;
+    "built-in" = 1;
+}

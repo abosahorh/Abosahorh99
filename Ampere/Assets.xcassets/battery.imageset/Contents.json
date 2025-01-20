@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "battery.png",
+      "filename" : "battery-light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

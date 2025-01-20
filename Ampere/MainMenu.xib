@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -707,12 +708,6 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ptd-SC-jIO"/>
-                <menuItem title="About" id="y17-da-ZIN">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="orderFront:" target="Us9-rb-YnM" id="pvN-Gr-FeX"/>
-                    </connections>
-                </menuItem>
                 <menuItem title="Settings" id="eSZ-4w-uG9">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -933,11 +928,11 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="sIh-hA-XN3"/>
                             </imageView>
                             <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8W9-zV-axD">
-                                <rect key="frame" x="115" y="49" width="70" height="16"/>
+                                <rect key="frame" x="116" y="49" width="68" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="c88-tq-h03"/>
                                 </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Version 1.0" id="qCH-lz-duG">
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Version 1.1" id="qCH-lz-duG">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
